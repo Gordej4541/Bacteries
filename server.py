@@ -17,10 +17,11 @@ while True:
         players.append(new_socket)
     except BlockingIOError:
         pass
-    for sock in players:
+    for sock in players:  # Отправляем статус игрового поля
         try:
-            data = sock.recv(1024).decode()
-            print("получил", data)
+            sock.send("Игра".encode())
         except:
-            pass
+            players.remove(sock)
+            sock.close()
+            print("Сокет закрыт")
     time.sleep(1)
