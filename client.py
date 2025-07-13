@@ -17,6 +17,10 @@ radius = 50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Бактерии")
 
+font_style = pygame.font.SysFont("Comic Sans", 10)
+mes = font_style.render("свой никнейм", True, "Black")
+
+# Размести на бактерии свой никнейм. Для этого тебе нужно будет вспомнить, как работают шрифты в PyGame.
 run = True
 while run:
     for event in pygame.event.get():
@@ -42,6 +46,7 @@ while run:
 
     screen.fill("gray")
     pygame.draw.circle(screen, (255, 0, 0), CC, radius)
+    screen.blit(mes, (370, 290))
     pygame.display.update()
 
 pygame.quit()
