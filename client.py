@@ -1,6 +1,5 @@
 import math
 import socket
-
 import pygame
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Настраиваем сокет
@@ -17,10 +16,6 @@ radius = 50
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Бактерии")
 
-font_style = pygame.font.SysFont("Comic Sans", 10)
-mes = font_style.render("свой никнейм", True, "Black")
-
-# Размести на бактерии свой никнейм. Для этого тебе нужно будет вспомнить, как работают шрифты в PyGame.
 run = True
 while run:
     for event in pygame.event.get():
@@ -38,15 +33,16 @@ while run:
 
             if vector != old:
                 old = vector
-                msg = f"{vector[0]} {vector[1]}"
+                msg = f"<{vector[0]},{vector[1]}>"
                 sock.send(msg.encode())
 
+    # Получаем
     data = sock.recv(1024).decode()
-    print("Получил: ", data)
+    print("Получил:", data)
 
-    screen.fill("gray")
+    # Рисуем новое поле
+    screen.fill('gray')
     pygame.draw.circle(screen, (255, 0, 0), CC, radius)
-    screen.blit(mes, (370, 290))
     pygame.display.update()
 
 pygame.quit()
