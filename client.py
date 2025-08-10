@@ -1,10 +1,9 @@
 import math
 import socket
-import tkinter as tk
-import tkinter.messagebox
-from tkinter import ttk
-
 import pygame
+import tkinter as tk
+from tkinter import ttk
+import tkinter.messagebox
 
 name = ""
 color = ""
@@ -17,7 +16,7 @@ def login():
         root.destroy()
         root.quit()
     else:
-        tk.messagebox.showerror("Ошибка", "Ты не ввел имя или не выбрал цвет")
+        tk.messagebox.showerror("Ошибка", "Ты не выбрал цвет или не ввёл имя!")
 
 
 def scroll(event):
@@ -28,14 +27,12 @@ def scroll(event):
 
 root = tk.Tk()
 root.title("Логин")
-root.geometry("300x100")
+root.geometry("300x200")
 
 style = ttk.Style()
-style.theme_use("clam")
+style.theme_use('clam')
 
-name_label = tk.Label(root, text="Введите свой никнейм:")
-name_label.pack()
-row = tk.Entry(root, width=30, justify="center")
+name_label = tk.Label(root, text="Введи свой никнейм:")
 name_label.pack()
 row = tk.Entry(root, width=30, justify="center")
 row.pack()
@@ -78,14 +75,14 @@ def find(vector: str):
             first = num
         if sign == ">" and first is not None:
             second = num
-            result = vector[first + 1: second]
+            result = vector[first + 1:second]  # Поменяли
             return result
     return ""
 
 
 def draw_bacteries(data: list[str]):
     for num, bact in enumerate(data):
-        data = bact.split(" ")
+        data = bact.split(" ")  # Разбиваем по пробелам подстроку одной бактерии
         x = CC[0] + int(data[0])
         y = CC[1] + int(data[1])
         size = int(data[2])
@@ -115,13 +112,12 @@ while run:
 
     # Получаем
     data = sock.recv(1024).decode()
-    # print("Получил:", data)
-    data = find(data).split(",")
+    data = find(data).split(",")  # Разбиваем на шары
 
     # Рисуем новое поле
     screen.fill('gray')
     pygame.draw.circle(screen, color, CC, radius)
-    if data != [""]:
+    if data != ['']:
         draw_bacteries(data)
     pygame.display.update()
 
