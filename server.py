@@ -280,6 +280,9 @@ while server_works:
     # Формируем ответ каждой бактерии
     for id in list(players):
         visible_bacteries[id] = "<" + ",".join(visible_bacteries[id]) + ">"
+        while True:
+            players[id].sync()
+            time.sleep(5)
 
     # Отправляем статус игрового поля
     for id in list(players):
